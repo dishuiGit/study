@@ -1,0 +1,86 @@
+{
+  "version": "1.0",
+  "defaultSchema": "MYSQL",
+  "schemas": [
+    {
+      "name": "MYSQL",
+      "type": "custom",
+      "factory": "cn.com.ptpress.cdm.schema.mysql.MysqlSchemaFactory",
+      "operand": {
+        "url": "jdbc:mysql://localhost:3306/db_cdm",
+        "user": "root",
+        "pass": "root"
+      },
+      "functions": [
+        {
+          "name": "test",
+          "className": "cn.com.ptpress.cdm.schema.function.MyFunction",
+          "methodName": "test"
+        }
+      ]
+      //      "tables": [
+      //        {
+      //          "name": "v_num",
+      //          "type": "view",
+      //          "sql": "select 1+2*3",
+      //          //          "path": [
+      //          //            "MYSQL"
+      //          //          ],
+      //          "modifiable": false
+      //        }
+      //      ],
+    },
+    //        {
+    //          "name": "JDBC_MYSQL",
+    //          "type": "jdbc",
+    //          "jdbcDriver": "com.mysql.jdbc.Driver",
+    //          "jdbcUrl": "jdbc:mysql://localhost:3306/db_cdm",
+    //          "jdbcUser": "root",
+    //          "jdbcPassword": "root",
+    //          "jdbcSchema": "db_cdm"
+    //        },
+    {
+      "name": "CSV",
+      "type": "map",
+      "tables": [
+        {
+          "name": "sys_role",
+          "type": "custom",
+          "factory": "cn.com.ptpress.cdm.schema.csv.CsvTableFactory",
+          "operand": {
+            "colPath": "src/main/resources/sys_role/col_type.json",
+            "dataPath": "src/main/resources/sys_role/data.csv"
+          }
+        }
+        /* {
+           "name": "v_user_role",
+           "type": "view",
+           "sql": "select * from sys_role",
+           //          "path": [
+           //            "CSV"
+           //          ],
+           "modifiable": false
+         }*/
+      ],
+      "functions": [
+        {
+          "name": "test",
+          "className": "cn.com.ptpress.cdm.schema.function.MyFunction",
+          "methodName": "test"
+        }
+      ],
+      "types": [
+        {
+          "name": "C",
+          "type": "varchar",
+          "attributes": [
+            {
+              "name": "vc",
+              "type": "varchar"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "version": "1.0",
+  "defaultSchema": "CSV",
+  "schemas": [
+    {
+      "name": "CSV",
+      "type": "custom",
+      "factory": "csv.CsvSchemaFactory",
+      "operand": {
+        "dataFile": "data_01.csv,data_02.csv"
+      },
+      "functions": [
+        {
+          "name": "EXAMPLE",
+          "methodName": "subString",
+          "className": "csv.udx.UDF"
+        }
+      ]
+    }
+  ]
+}

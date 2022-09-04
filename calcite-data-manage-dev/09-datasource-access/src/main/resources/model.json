@@ -1,0 +1,61 @@
+{
+  "version": "1.0",
+  "defaultSchema": "csv",
+  "schemas": [
+    {
+      "name": "CSV",
+      "type": "custom",
+      "factory": "cn.com.ptpress.cdm.ds.csv.CsvSchemaFactory",
+      "operand": {
+        "dataFile": "data_01.csv,data_02.csv"
+      },
+      "functions": [
+        {
+          "name": "EXAMPLE",
+          "methodName": "subString",
+          "className": "cn.com.ptpress.cdm.ds.csv.udx.UDF"
+        }
+      ]
+    },
+    {
+      "name": "PG",
+      "type": "custom",
+      "factory": "cn.com.ptpress.cdm.ds.pg.PostgreSqlSchemaFactory",
+      "operand": {
+        "url": "jdbc:postgresql://localhost:5432/postgres",
+        "user": "postgres",
+        "password": "postgres"
+      }
+    },
+    {
+      "type": "custom",
+      "name": "redis",
+      "factory": "cn.com.ptpress.cdm.ds.redis.RedisSchemaFactory",
+      "operand": {
+        "host": "localhost",
+        "port": 6379,
+        "database": 0,
+        "password": ""
+      },
+      "tables": [
+        {"name": "stu_01",
+          "factory": "cn.com.ptpress.cdm.ds.redis.RedisTableFactory",
+          "operand": {
+            "dataFormat": "json",
+            "fields": [
+              {
+                "name": "name",
+                "type": "varchar",
+                "mapping": "name"
+              },
+              {
+                "name": "score",
+                "type": "integer",
+                "mapping": "score"
+              }
+            ]
+          }}
+      ]
+    }
+  ]
+}

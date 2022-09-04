@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "defaultSchema": "CSV",
+  "schemas": [
+    {
+      "name": "CSV",
+      "type": "custom",
+      "factory": "cn.com.ptpress.cdm.ds.csv.CsvSchemaFactory",
+      "operand": {
+        "dataFile": "user_pos.csv"
+      }
+    }
+  ]
+}

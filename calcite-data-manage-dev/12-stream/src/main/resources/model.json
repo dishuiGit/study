@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "defaultSchema": "STREAM",
+  "schemas": [
+    {
+      "name": "STREAM",
+      "tables": [
+        {
+          "type": "custom",
+          "name": "LOG",
+          "stream": {
+            "stream": true
+          },
+          "factory": "cn.com.ptpress.cdm.stream.StreamLogTableFactory"
+        },
+        {
+          "type": "custom",
+          "name": "LOG_CACHE",
+          "stream": {
+            "stream": true
+          },
+          "factory": "cn.com.ptpress.cdm.stream.StreamCacheLogTableFactory"
+        }
+      ]
+    }
+  ]
+}

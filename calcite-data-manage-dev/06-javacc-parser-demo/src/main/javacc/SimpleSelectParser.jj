@@ -1,0 +1,89 @@
+options {
+    IGNORE_CASE = true;
+    // 允许被多次初始化
+    STATIC = false;
+}
+
+PARSER_BEGIN(SimpleSelectParser)
+
+package cn.com.ptpress.cdm.parser.select;
+import java.io.* ;
+
+public class SimpleSelectParser {
+    private String sql;
+
+    public void parse() throws ParseException {
+        SelectExpr(sql);
+    }
+    public SimpleSelectParser(String expr) {
+        this((Reader)(new StringReader(expr)));
+        this.sql = expr;
+    }
+    public static void main(String[] args) throws Exception{
+        final SimpleSelectParser parser = new SimpleSelectParser(String.join(" ", args));
+        parser.parse();
+    }
+}
+PARSER_END(SimpleSelectParser)
+
+void SelectExpr(String sql) :
+{
+    int res;
+}
+{
+    <SELECT>
+    res = Expression()
+    {
+        System.out.println(sql + "=" + res);
+    }
+}
+
+int Expression() :
+{
+    int res = 0;
+    int v;
+}
+{
+    res = Number()
+    (
+        <ADD>
+        v = Number()
+        {res += v;}
+    |
+        <SUB>
+        v = Number()
+        {res -= v;}
+    )*
+    {return res;}
+}
+
+int Number() :
+{
+    Token t;
+}
+{
+    t = <NUMBER>
+    {
+        return Integer.parseInt(t.image);
+    }
+}
+
+TOKEN :
+{
+    < SELECT: "SELECT" >
+|   < NUMBER: (["0"-"9"])+ >
+|   < ADD: "+" >
+|   < SUB: "-" >
+}
+
+/*
+跳过的制表符
+* */
+SKIP :
+{
+    " "
+|   "\t"
+|   "\n"
+|   "\r"
+|   "\f"
+}

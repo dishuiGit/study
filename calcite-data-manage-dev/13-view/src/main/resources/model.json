@@ -1,0 +1,69 @@
+{
+  "version": "1.0",
+  "defaultSchema": "CSV",
+  "schemas": [
+    {
+      "name": "CSV",
+      "type": "custom",
+      "factory": "cn.com.ptpress.cdm.ds.csv.CsvSchemaFactory",
+      "operand": {
+        "dataFile": "SALE_ORDER.csv,PRODUCT.csv"
+      },
+      "tables": [
+        {
+          "name": "V_ORDER_1",
+          "type": "view",
+          "sql": "select * from sale_order where user_id=1",
+          "modifiable": false
+        }
+      ],
+      "materializations": [
+        {
+          "table": "M_ORDER1",
+          "view": "M_ORDER1_V",
+          "sql": "select * from sale_order where user_id=1"
+        },
+        {
+          "table": "M_ORDER_JOIN_PROD",
+          "sql": "select s.id,p.name from sale_order s join product p on s.product_id=p.id"
+        },
+        {
+          "table": "M_ORDER_AGG1",
+          "sql": "select user_id,product_id,sum(money) from sale_order group by user_id,product_id"
+        }
+      ]
+    },
+    {
+      "name": "LAT",
+      "autoLattice": false,
+      "lattices": [
+        {
+          "name": "star",
+          "sql": [
+            "select id from csv.product"
+          ],
+          "auto": true,
+          "algorithm": true,
+          "rowCountEstimate": 10000,
+          "defaultMeasures": [
+            {
+              "agg": "count"
+            }
+          ],
+          "tiles": [
+            {
+              "dimensions": [
+                "NAME"
+              ],
+              "measures": [
+                {
+                  "agg": "count"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
