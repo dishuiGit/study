@@ -109,6 +109,7 @@ public class ModelTest {
     }
 
     private void validateSql(String sql) throws SqlParseException, SQLException {
+        //设置Mysql语法
         SqlParser.Config mysqlConfig = SqlParser.config().withLex(Lex.MYSQL);
         SqlParser parser = SqlParser.create(sql, mysqlConfig);
         SqlNode sqlNode = parser.parseQuery();

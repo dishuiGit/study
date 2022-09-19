@@ -5,10 +5,21 @@
     {
       "name": "TEST_CSV",
       "type": "custom",
-      "factory": "pers.shezm.calcite.csv.CsvSchemaFactory",
+      "factory": "site.dishui.calcite.csv.CsvSchemaFactory",
       "operand": {
-        "dataFile": "TEST01.csv,TEST02.csv"
+        "dataFile": "TEST01.csv,TEST02.csv,TMP.csv"
       }
+    },
+    {
+      "factory": "org.apache.calcite.adapter.jdbc.JdbcSchema$Factory",
+      "name": "db1",
+      "operand": {
+        "jdbcDriver": "com.mysql.cj.jdbc.Driver",
+        "jdbcUrl": "jdbc:mysql://10.210.2.202:13306/certextraction",
+        "jdbcUser": "quanmin110",
+        "jdbcPassword": "quanmin110.com"
+      },
+      "type": "custom"
     }
   ]
 }
